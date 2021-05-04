@@ -39,11 +39,14 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'django.contrib.sites',
     'Account',
+    'crispy_forms',
     'allauth',
     'allauth.account',
     'allauth.socialaccount',
     'allauth.socialaccount.providers.google',
 ]
+
+#AUTH_USER_MODEL = 'Account.AbstractBaseUser'
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -128,22 +131,19 @@ STATIC_URL = '/static/'
 AUTHENTICATION_BACKENDS = [
     'django.contrib.auth.backends.ModelBackend',
     'allauth.account.auth_backends.AuthenticationBackend',
+    #'social_core.backends.google.GoogleOAuth',
 ]
 
-SOCIALACCOUNT_PROVIDERS ={
-    'google':
-    {
-        'scope' : [
+SOCIALACCOUNT_PROVIDERS = {
+    'google': {
+        'SCOPE': [
             'profile',
             'email',
         ],
-
-        'auth_params': {
-            'access_type' : 'online',
+        'AUTH_PARAMS': {
+            'access_type': 'online',
         }
-
     }
-
 }
 
 SITE_ID = 3

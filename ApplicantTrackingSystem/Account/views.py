@@ -1,87 +1,46 @@
-from django.shortcuts import render, redirect
-from django.contrib.auth import login, logout, authenticate
-
-from Account.forms import RegistrationForm, AccountUpdateForm, AccountAuthenticationForm
-
-# Create your views here.
+from django.shortcuts import  render, redirect
+from .forms import NewUserForm
+from django.contrib.auth import login, authenticate,logout
+from django.contrib import messages #import messages
+from django.contrib.auth.forms import AuthenticationForm 
+from Account.models import Account
 
 def registration_view(request):
-	context = {}
-	if request.POST:
-		form = RegistrationForm(request.POST)
+	if request.method == "POST":
+		form = NewUserForm(request.POST)
 		if form.is_valid():
-			form.save()
-			email = form.cleaned_data.get('email')
-			raw_password = form.cleaned_data.get('password1')
-			account = authenticate(email=email, password=raw_password)
-			login(request, account, backend='django.contrib.auth.backends.ModelBackend')
-			return redirect('home')
-		else:
-			context['registration_form'] = form
-
-	else:
-		form = RegistrationForm()
-		context['registration_form'] = form
-	return render(request, '../Templates/registration.html', context)
+			user = form.save()
+			login(request, user, backend='django.contrib.auth.backends.ModelBackend')
+			messages.success(request, "Registration successful." )
+			return redirect("home")
+		messages.error(request, "Unsuccessful registration. Invalid information.")
+	form = NewUserForm
+	return render (request=request, template_name="../Templates/registration.html", context={"register_form":form})
 
 def logout_view(request):
-    logout(request)
-    return redirect('home')
+	logout(request)
+	return redirect('home')
 
 def login_view(request):
+	context = {}
 
-    context = {}
+	user = request.user
+	if user.is_authenticated: 
+		return redirect("home")
 
-    user = request.user
-    if user.is_authenticated: 
-        return redirect("home")
-
-    if request.POST:
-        form = AccountAuthenticationForm(request.POST)
-        if form.is_valid():
-            email = request.POST['email']
-            password = request.POST['password']
-            user = authenticate(email=email, password=password)
-
-            if user:
-                login(request, user, backend='django.contrib.auth.backends.ModelBackend')
-                return redirect("home")
-
-    else:
-        form = AccountAuthenticationForm()
-
-    context['login_form'] = form
-
-    return render(request, '../Templates/login.html', context)
-
-def account_view(request):
-    if notrequest.user.is_autenticated:
-        return redirect('login')
-
-    context = {}
-    if request.POST:
-        form    = AccountUpdateForm(request.POST, instance=request.user)
-
-        if form.is_valid():
-            form.initial = {
-                "email"     : request.POST['email'],
-                "username"  : request.POST['username'],
-            }
-            form.save()
-            context['success_message'] = "updated"
-
-    else:
-        form    = AccountUpdateForm(
-            initial = {
-                "email"     : request.user.email,    
-                "username"  : request.user.username,
-            }
-        )
-    context['update_form']  = form
-    return render(request, "home", context)
-           
-        
-
-
-
-
+	if request.method == "POST":
+		form = AuthenticationForm(request, data=request.POST)
+		if form.is_valid():
+			username = form.cleaned_data.get('username')
+			password = form.cleaned_data.get('password')
+			user = authenticate(username=username, password=password)
+			if user is not None:
+				login(request, user, backend='django.contrib.auth.backends.ModelBackend')
+				messages.info(request, f"You are now logged in as {username}.")
+				return redirect("home")
+			else:
+				messages.error(request,"Invalid username or password.")
+		else:
+			messages.error(request,"Invalid username or password.")
+	form = AuthenticationForm()
+	return render(request=request, template_name="../Templates/login.html", context={"login_form":form})
