@@ -1,0 +1,13 @@
+<div *ngFor="let post of posts">
+  <div class="row mb-3">
+    <label class="col-md-2"><title></title>:</label>
+    <div class="col-md-2 mb-1">{{ post.title }}</div>
+    <label class="col-md-2">Date:</label>
+    <div class="col-md-6">{{ post.date_updated }}</div>
+    <div class="col-md-12">
+
+      <img class="images" [src]="post.image" />
+    </div>
+    <div class="col-md-12">{{ post.body }}</div>
+  </div>
+</div>
