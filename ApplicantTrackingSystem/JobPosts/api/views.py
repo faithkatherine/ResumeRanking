@@ -25,7 +25,7 @@ CREATE_SUCCESS = 'created'
 def api_detail_job_view(request, slug):
 
 	try:
-		job_post = BlogPost.objects.get(slug=slug)
+		job_post = JobPost.objects.get(slug=slug)
 	except JobPost.DoesNotExist:
 		return Response(status=status.HTTP_404_NOT_FOUND)
 
@@ -155,7 +155,7 @@ class ApiJobListView(ListAPIView):
 	queryset = JobPost.objects.all()
 	serializer_class = JobPostSerializer
 	authentication_classes = (TokenAuthentication,)
-	permission_classes = (IsAuthenticated, AllowAny,)
+	permission_classes = (AllowAny,)
 	pagination_class = PageNumberPagination
 	filter_backends = (SearchFilter, OrderingFilter)
 	search_fields = ('title', 'body', 'author__username')

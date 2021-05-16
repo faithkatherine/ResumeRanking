@@ -48,16 +48,20 @@ INSTALLED_APPS = [
     'JobPosts',
     'ResumePost',
     'rest_framework',
+    'rest_framework.authtoken'
+    #'rest_framework_social_oauth2',
 ]
-
+AUTH_USER_MODEL = 'Account.Account'
 REST_FRAMEWORK = {
     'DEFAULT_PERMISSION_CLASSES' : (
         'rest_framework.permissions.IsAuthenticatedOrReadOnly',
+        #'oauth2_provider.contrib.rest_framework.OAuth2Authentication',
+        #'rest_framework_social_oauth2.authentication.SocialAuthentication',
     ),
 
     'DEFAULT_AUTHENTICATION_CLASSES': (
         #'rest_framework_jwt.authentication.JsonWebAuthenticationToken',
-        #'rest_framework.authentication.SessionAuthentication',
+        'rest_framework.authentication.SessionAuthentication',
         'rest_framework.authentication.BasicAuthentication',
     ),
 }
@@ -92,6 +96,8 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'social_django.context_processors.backends',
+                'social_django.context_processors.login_redirect'
             ],
         },
     },
@@ -159,6 +165,7 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media_cdn')
 AUTHENTICATION_BACKENDS = [
     'django.contrib.auth.backends.ModelBackend',
     'allauth.account.auth_backends.AuthenticationBackend',
+    #'rest_framework_social_oauth2.backends.DjangoOAuth2',
     #'social_core.backends.google.GoogleOAuth',
 ]
 
@@ -173,6 +180,13 @@ SOCIALACCOUNT_PROVIDERS = {
         }
     }
 }
+
+# Define SOCIAL_AUTH_GOOGLE_OAUTH2_SCOPE to get extra permissions from Google.
+#SOCIAL_AUTH_GOOGLE_OAUTH2_SCOPE = [
+#    'https://www.googleapis.com/auth/userinfo.email',
+#    'https://www.googleapis.com/auth/userinfo.profile',
+#]
+
 
 SITE_ID = 3
 LOGIN_REDIRECT_URL = "/"

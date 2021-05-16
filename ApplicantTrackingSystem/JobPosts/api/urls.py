@@ -16,7 +16,7 @@ urlpatterns = [
 	path('<slug>/update', api_update_job_view, name="update"),
 	path('<slug>/delete', api_delete_job_view, name="delete"),
 	path('create/', api_create_job_view, name="create"),
-	path('list', ApiJobListView.as_view(), name="list"),
+	path('list/', ApiJobListView.as_view(), name="list"),
 	path('<slug>/is_author', api_is_author_of_jobpost, name="is_author"),
 
 ]

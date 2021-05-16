@@ -35,7 +35,11 @@ urlpatterns = [
     path('login/', login_view, name="login"),
     path('logout/', logout_view, name="logout" ),
     #path('logout', LogoutView.as_view())
+
+    # rest framework
     path('api/jobs/', include('JobPosts.api.urls', 'jobs_api')),
+    path('api/account/', include('Account.api.urls', 'account_api')),
+    #path('socialoauth', include('rest_framework_social_oauth2.urls')),
 ]
 
 if settings.DEBUG:
