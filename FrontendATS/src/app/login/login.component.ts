@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, FormBuilder, Validators } from '@angular/forms';
 import { AuthService } from '../services/auth.service';
-import { Router } from '@angular/router';
+
 
 @Component({
   selector: 'app-login',
@@ -15,12 +15,13 @@ export class LoginComponent implements OnInit {
     this.form = this.fb.group({
       email: new FormControl('', Validators.required),
       password: new FormControl('', Validators.required)
-    }); }
-
-  ngOnInit(): void {
+    });
   }
 
-   signInUser(){
+  ngOnInit() {
+  }
+
+  signInUser(){
     this.authService.signIn(
       this.form.get('email').value,
       this.form.get('password').value

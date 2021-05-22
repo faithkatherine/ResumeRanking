@@ -48,12 +48,8 @@ def registration_view(request):
 		else:
 			data = serializer.errors
 		#send a success response	
-		success_message =             {
-                "message":"Registered Successfully.",
-                "status" : True
-,
-                }
-		return Response(data, success_message)
+
+		return Response(data, status=status.HTTP_200_OK)
 
 def validate_email(email):
 	account = None
@@ -125,25 +121,26 @@ class ObtainAuthTokenView(APIView):
 	permission_classes = []
 
 	def post(self, request):
-		context = {}
+		if request.method == 'POST':
+			data = {}
 
-		email = request.POST.get('username')
-		password = request.POST.get('password')
-		account = authenticate(email=email, password=password)
-		if account:
+		email = request.data.get('email')
+		password = request.data.get("password")
+		Account = authenticate(email=email, password=password)
+		if Account:
 			try:
-				token = Token.objects.get(user=account)
+				token = Token.objects.get(user=Account)
 			except Token.DoesNotExist:
-				token = Token.objects.create(user=account)
-			context['response'] = 'Successfully authenticated.'
-			context['pk'] = account.pk
-			context['email'] = email.lower()
-			context['token'] = token.key
+				token = Token.objects.create(user=Account)
+			data['response'] = 'Successfully authenticated.'
+			data['pk'] = Account.pk
+			data['email'] = email.lower()
+			data['token'] = token.key
 		else:
-			context['response'] = 'Error'
-			context['error_message'] = 'Invalid credentials'
+			data['response'] = 'Error'
+			data['error_message'] = 'Invalid credentials'
 
-		return Response(context)
+		return Response(data)
 
 
 

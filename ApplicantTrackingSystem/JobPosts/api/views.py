@@ -51,7 +51,7 @@ def api_update_job_view(request, slug):
 		return Response({'response':"You don't have permission to edit that."}) 
 		
 	if request.method == 'PUT':
-		serializer = BlogPostUpdateSerializer(job_post, data=request.data, partial=True)
+		serializer = JobPostUpdateSerializer(job_post, data=request.data, partial=True)
 		data = {}
 		if serializer.is_valid():
 			serializer.save()

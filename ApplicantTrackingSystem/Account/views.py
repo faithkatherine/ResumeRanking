@@ -4,6 +4,7 @@ from django.contrib.auth import login, authenticate,logout
 from django.contrib import messages #import messages
 from django.contrib.auth.forms import AuthenticationForm 
 from Account.models import Account
+from JobPosts.models import JobPost
 
 def registration_view(request):
 	if request.method == "POST":
@@ -44,3 +45,38 @@ def login_view(request):
 			messages.error(request,"Invalid username or password.")
 	form = AuthenticationForm()
 	return render(request=request, template_name="../Templates/login.html", context={"login_form":form})
+
+def account_view(request):
+
+	if not request.user.is_authenticated:
+			return redirect("login")
+
+	context = {}
+	if request.POST:
+		form = AccountUpdateForm(request.POST, instance=request.user)
+		if form.is_valid():
+			form.initial = {
+					"email": request.POST['email'],
+					"username": request.POST['username'],
+			}
+			form.save()
+			context['success_message'] = "Updated"
+	else:
+		form = AccountUpdateForm(
+
+			initial={
+					"email": request.user.email, 
+					"username": request.user.username,
+				}
+			)
+
+	context['account_form'] = form
+
+	job_posts = JobPost.objects.filter(author=request.user)
+	context['job_posts'] = job_posts
+
+	return render(request, "../Templates/account.html", context)
+
+
+def must_authenticate_view(request):
+	return render(request, '../Templates/must_authenticate.html', {})

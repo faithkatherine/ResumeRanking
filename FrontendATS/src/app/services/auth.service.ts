@@ -2,15 +2,14 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Router } from '@angular/router';
 
-
-
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
   auth_url:string = 'http://localhost:8000/api/account';
   jsonHeader = {headers: new HttpHeaders({'Content-Type':  'application/json'})};
-  constructor(private httpClient: HttpClient, private router: Router) { }
+
+  constructor(private httpClient: HttpClient, private router: Router) {}
 
   getAccessToken(){
     return localStorage.getItem('user_access_token');
@@ -39,11 +38,14 @@ export class AuthService {
       },
       this.jsonHeader
     ).subscribe(
-      (result:any) => {
+      (response:any) => {
+        console.log(response);
         // save the access token in local storage
-        localStorage.setItem('user_access_token', result['token']);
+        localStorage.setItem('user_access_token', response['token']);
         // save the user id in local storage
-        //localStorage.setItem('user_id', result['user_id']);
+        localStorage.setItem('user_id', response['pk']);
+        //save email
+        localStorage.setItem('email', response['email']);
         // change route to the profile component
         this.router.navigate(['account']);
       }

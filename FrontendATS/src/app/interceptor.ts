@@ -1,6 +1,6 @@
 import {Injectable} from "@angular/core";
 import {HttpInterceptor, HttpRequest, HttpHandler} from "@angular/common/http";
-import {AuthService} from './services/auth.service';
+import {AuthService} from "./services/auth.service";
 import {isNullOrUndefined} from "util";
 
 @Injectable()
@@ -18,7 +18,7 @@ export class UserRequestInterceptor implements HttpInterceptor {
     if(isNullOrUndefined(accessToken))
       return next.handle(req);
 
-          // set the header
+    // set the header
     req = req.clone({
       setHeaders: {
         Authorization: "Bearer " + accessToken

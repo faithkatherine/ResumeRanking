@@ -27,10 +27,11 @@ export class RegistrationComponent implements OnInit {
       this.form.get('password').value,
       this.form.get('password2').value
     ).subscribe(
-      (result:any) => {
-        if(result['status'] == 'success'){
-          this.form.reset();
-          this.router.navigate(['login']);
+      (response:any) => {
+        console.log(response);
+        if(response['status'] == 'successfully registered new user'){
+        this.form.reset();
+        this.router.navigate(['login']);
         }
       }
     )

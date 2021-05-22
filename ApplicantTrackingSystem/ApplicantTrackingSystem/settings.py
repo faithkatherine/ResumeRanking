@@ -46,9 +46,11 @@ INSTALLED_APPS = [
     'allauth.socialaccount',
     'allauth.socialaccount.providers.google',
     'JobPosts',
+    'Home',
     'ResumePost',
     'rest_framework',
-    'rest_framework.authtoken'
+    'rest_framework.authtoken',
+    'corsheaders',
     #'rest_framework_social_oauth2',
 ]
 AUTH_USER_MODEL = 'Account.Account'
@@ -66,6 +68,10 @@ REST_FRAMEWORK = {
     ),
 }
 
+CORS_ALLOWED_ORIGINS = [
+    'http://localhost:4200'
+]
+
 JWT_AUTH = {
     'JWT_ALLOW_REFRESH': True,
     'JWT_EXPIRATION_DELTA': datetime.timedelta(seconds=3600),
@@ -74,6 +80,8 @@ JWT_AUTH = {
 #AUTH_USER_MODEL = 'Account.AbstractBaseUser'
 
 MIDDLEWARE = [
+    'corsheaders.middleware.CorsMiddleware',
+    'django.middleware.common.CommonMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -81,6 +89,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    
 ]
 
 ROOT_URLCONF = 'ApplicantTrackingSystem.urls'
@@ -88,7 +97,7 @@ ROOT_URLCONF = 'ApplicantTrackingSystem.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [os.path.join(BASE_DIR, 'FrontendATS'),],
+        'DIRS': [os.path.join(BASE_DIR, 'Templates'),],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [

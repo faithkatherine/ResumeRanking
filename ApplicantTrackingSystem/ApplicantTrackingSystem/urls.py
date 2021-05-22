@@ -19,21 +19,26 @@ from django.conf import settings
 from django.conf.urls.static import static
 from django.views.generic import TemplateView
 from django.contrib.auth.views import LogoutView
-from Home.views import home_view
+from Home.views import home_screen_view
 from Account.views import(
     registration_view,
     login_view,
     logout_view,
+    account_view,
+	must_authenticate_view,
 )
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', home_view, name="home"),
+    path('', home_screen_view, name="home"),
 #path('',TemplateView.as_view(template_name = 'index.html')),
     path('accounts/', include('allauth.urls')),
     path('register/', registration_view, name="registration"),
+    path('account/', account_view, name="account"),
     path('login/', login_view, name="login"),
     path('logout/', logout_view, name="logout" ),
+    path('must_authenticate/', must_authenticate_view, name="must_authenticate"),
+    path('jobs/', include('JobPosts.urls', 'jobs')),
     #path('logout', LogoutView.as_view())
 
     # rest framework
