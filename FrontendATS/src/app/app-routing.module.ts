@@ -7,6 +7,7 @@ import { ResumePostComponent } from './resume-post/resume-post.component';
 import { LoginComponent } from './login/login.component';
 import { RegistrationComponent } from './registration/registration.component';
 import {AuthGuard } from './auth.guard';
+import { AddJobPostComponent } from './add-job-post/add-job-post.component';
 
 
 const routes: Routes = [
@@ -17,6 +18,7 @@ const routes: Routes = [
   {path: 'login', component: LoginComponent},
   {path: 'registration', component: RegistrationComponent},
   {path: 'account', component: AccountComponent, canActivate: [AuthGuard]},
+  {path: 'createjob', component: AddJobPostComponent},
   {path:'' , redirectTo:'home', pathMatch: 'full'}
 
 ];

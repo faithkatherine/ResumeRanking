@@ -13,6 +13,7 @@ Including another URLconf
     1. Import the include() function: from django.urls import include, path
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
+from django import urls
 from django.contrib import admin
 from django.urls import path, include
 from django.conf import settings
@@ -27,6 +28,7 @@ from Account.views import(
     account_view,
 	must_authenticate_view,
 )
+
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -44,6 +46,7 @@ urlpatterns = [
     # rest framework
     path('api/jobs/', include('JobPosts.api.urls', 'jobs_api')),
     path('api/account/', include('Account.api.urls', 'account_api')),
+    path('api/resumes/', include('ResumePost.api.urls', 'resumes_api')),
     #path('socialoauth', include('rest_framework_social_oauth2.urls')),
 ]
 

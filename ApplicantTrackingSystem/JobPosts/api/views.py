@@ -7,7 +7,7 @@ from rest_framework.pagination import PageNumberPagination
 from rest_framework.generics import ListAPIView
 from rest_framework.filters import SearchFilter, OrderingFilter
 
-from django.contrib.auth.models import User
+from Account.models import Account
 from JobPosts.models import JobPost
 from JobPosts.api.serializers import JobPostSerializer, JobPostUpdateSerializer, JobPostCreateSerializer
 
@@ -116,9 +116,9 @@ def api_delete_job_view(request, slug):
 # Url: https://<your-domain>/api/blog/create
 # Headers: Authorization: Token <token>
 @api_view(['POST'])
-@permission_classes((AllowAny,))
+@permission_classes((IsAuthenticated,))
 def api_create_job_view(request):
-
+ 
 	if request.method == 'POST':
 
 		data = request.data
@@ -155,7 +155,7 @@ class ApiJobListView(ListAPIView):
 	queryset = JobPost.objects.all()
 	serializer_class = JobPostSerializer
 	authentication_classes = (TokenAuthentication,)
-	permission_classes = (AllowAny,)
+	permission_classes = (AllowAny,IsAuthenticated)
 	pagination_class = PageNumberPagination
 	filter_backends = (SearchFilter, OrderingFilter)
 	search_fields = ('title', 'body', 'author__username')

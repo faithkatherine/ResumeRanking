@@ -21,7 +21,7 @@ export class UserRequestInterceptor implements HttpInterceptor {
     // set the header
     req = req.clone({
       setHeaders: {
-        Authorization: "Bearer " + accessToken
+        Authorization: "Token" + " " + accessToken
       }
     });
     return next.handle(req);

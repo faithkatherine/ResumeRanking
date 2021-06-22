@@ -31,7 +31,7 @@ class JobPost(models.Model):
     #choices         =models.CharField(max_length=20, choices=categories)
     date_published  = models.DateTimeField(auto_now_add= True, verbose_name='Date Published' )
     date_updated    = models.DateTimeField(auto_now=True, verbose_name='Date Updated')
-    author          = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete= models.CASCADE,related_name='job_post', verbose_name='user')
+    author          = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete= models.CASCADE,related_name='job_author', verbose_name='user')
     slug            = models.SlugField(blank=True, unique=True)
 
     def __str__(self):

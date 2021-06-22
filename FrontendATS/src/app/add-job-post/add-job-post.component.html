@@ -1,0 +1,24 @@
+<div class="container">
+  <div class="row">
+    <div class="col-12">
+      <h1>Post Job</h1>
+    </div>
+    <div class="col-12">
+      <form [formGroup]="form" (ngSubmit)="addJobPost()">
+        <div class="form-group">
+          <label>title</label>
+          <input type="text" class="form-control" formControlName="title" placeholder="Enter a title" required>
+        </div>
+        <div class="form-group">
+          <label>body</label>
+          <input type="text" class="form-control" formControlName="body" placeholder="Enter the body" required>
+        </div>
+        <div class="form-group">
+          <label>image</label>
+          <input type="file" class="form-control" (change)="uploadFile($event)" required>
+        </div>
+        <button type="submit" class="btn btn-success">Sign In</button>
+      </form>
+    </div>
+  </div>
+</div>
