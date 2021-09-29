@@ -10,8 +10,7 @@ from django.dispatch import receiver
 # Create your models here.
 
 def upload_location(instance,filename, **kwargs):
-    filepath = 'Resumes/{author_id}/{title}-{filename}'.format(
-        author_id = str(instance.author_id),
+    filepath = 'Resumes/{title}/-{filename}'.format(
         title = str(instance.jobpost_title),
         filename = filename
         )
@@ -20,17 +19,15 @@ class ResumePost(models.Model):
     Applicant_name  = models.CharField(max_length=255, blank=False)
     document        = models.FileField(upload_to=upload_location)
     uploaded_at     = models.DateTimeField(auto_now_add=True)
-    jobpost_title   = models.ForeignKey(JobPost,on_delete= models.CASCADE,related_name='resume_title',  verbose_name='title')
-    author          = models.ForeignKey(JobPost,on_delete= models.CASCADE,related_name='resume_author', verbose_name='job_author')
+    jobpost_title   = models.ForeignKey(JobPost,on_delete= models.CASCADE)
+    #author          = models.ForeignKey(JobPost,on_delete= models.CASCADE,related_name='resume_author', verbose_name='job_author')
     slug            = models.SlugField(blank=True, unique=True)
 
     def __str__(self):
         return self.Applicant_name
     
-    def get_author(self):
-        return self.JobPost.author
 
-@receiver (post_delete, sender=JobPost)
+@receiver (post_delete, sender=ResumePost)
 def submission_delete(sender, instance, **kwargs):
     instance.image.delete(False)
     

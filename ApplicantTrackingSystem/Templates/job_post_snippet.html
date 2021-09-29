@@ -13,17 +13,20 @@
 	<div class="row">
 		<!-- Blog Post -->
 		<div class="card m-auto">
-			<a href="{% url 'JobPost:detail' post.slug %}">
+			<a href="{% url 'JobPosts:detail' post.slug %}">
 				<img class="card-img-top" src="{{job_post.image.url}}">
 			</a>
 			<div class="card-body mt-2 mb-2">
-				<a href="{% url 'JobPost:detail' post.slug %}">
+				<a href="{% url 'JobPosts:detail' post.slug %}">
 					<h2 class="card-title">{{job_post.title}}</h2>
 				</a>
 				<p class="card-text">{{job_post.body|safe|truncatechars:180}}</p>
 				{% if job_post.author == request.user %}
-					<a href="{% url 'JobPost:edit' job_post.slug %}" class="btn btn-primary">Update</a>
+					<a href="{% url 'JobPosts:edit' job_post.slug %}" class="btn btn-primary">Update</a>
+				{% elif job_post.author != request.user %}
+					<a href="{% url 'post-resumes' %}"  class="btn btn-primary">Apply</a>
 				{% endif %}
+
 			</div>
 			<div class="card-footer text-muted">
 			  Updated on {{job_post.date_updated}} by {{job_post.author}}
@@ -44,5 +47,11 @@
 		</div>
 	</div>
 </div>
+
+<script>
+	function bookmark(){
+		localStorage.jobp
+	}
+</script>
 
 {% endif %}

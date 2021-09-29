@@ -21,7 +21,7 @@ CREATE_SUCCESS = 'created'
 # Url: https://<your-domain>/api/blog/<slug>/
 # Headers: Authorization: Token <token>
 @api_view(['GET', ])
-@permission_classes((IsAuthenticated ))
+@permission_classes((IsAuthenticated,))
 def api_detail_resume_view(request, slug):
 
 	try:
@@ -53,8 +53,8 @@ def api_create_resume_view(request):
 			data['pk'] = resume_post.pk
 			data['Applicant_name'] = resume_post.Applicant_name
 			data['document'] = resume_post.document
-			data['jobpost_title'] = resume_post.jobpost_title
-			data['author'] = resume_post.author
+			data['title'] = resume_post.jobpost_title.title
+			#data['author'] = resume_post.author
 			data['slug'] = resume_post.slug
 
 			return Response(data=data)

@@ -57,8 +57,8 @@
 			<!-- end Top 'create post' bar -->
 
 			<!-- Blog posts-->
-			{% if blog_posts %}
-				{% for post in blog_posts %}
+			{% if job_posts %}
+				{% for post in job_posts %}
 					<div class="blog-post-container">
 						{% include 'job_post_snippet.html' with job_post=post %}
 					</div>

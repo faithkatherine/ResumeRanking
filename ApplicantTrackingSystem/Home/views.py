@@ -33,4 +33,4 @@ def home_screen_view(request, *args, **kwargs):
 
 	context['job_posts'] = job_posts
 
-	return render(request, '../Templates/home.html', context)
+	return render(request, "../FrontendATS/index.html", context)

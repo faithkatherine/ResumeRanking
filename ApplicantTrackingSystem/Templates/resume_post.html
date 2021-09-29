@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+
+{% block content %}
+ <div>
+   <form method="POST">
+      {% csrf_token %}
+      <label for="myfile">Select a file:</label>
+      <input type="text" name="name"> Applicant name
+      
+      <label for="myfile">Select a file:</label>
+      <input type="file" name="myfile" name="myfile">
+
+      <button type="submit">Submit</button>
+   </form>
+ </div>
+
+
+{% endblock %}

@@ -1,7 +1,7 @@
 from django import forms
 from ResumePost.models import ResumePost
 
-class DocumentForm(forms.ModelForm):
+class CreateResumePostForm(forms.ModelForm):
     class Meta:
         model = ResumePost
-        fields = ('Applicant_name', 'document', )
+        fields = ('Applicant_name', 'document' )

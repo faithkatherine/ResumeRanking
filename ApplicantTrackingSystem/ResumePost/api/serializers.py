@@ -17,19 +17,16 @@ class ResumePostSerializer(serializers.ModelSerializer):
 
 class ResumePostCreateSerializer(serializers.ModelSerializer):
     jobpost_title = serializers.SlugRelatedField(
-    many=False,
-    slug_field='title',
-    queryset = JobPost.objects.all()
+        #source = jobpost_title
+        many=False,
+        slug_field='title',
+        queryset = JobPost.objects.all()
 )
 
-    author = serializers.SlugRelatedField(
-    many=False,
-    slug_field='author',
-    queryset = JobPost.objects.all()
-)
+
     class Meta:
         model = ResumePost
-        fields = ['Applicant_name', 'document', 'jobpost_title', 'author', 'uploaded_at']
+        fields = ['Applicant_name', 'document', 'jobpost_title', 'uploaded_at']
 
 
     def save(self):
@@ -39,11 +36,11 @@ class ResumePostCreateSerializer(serializers.ModelSerializer):
             document    = self.validated_data['document']
             
             
-            resume_post = ResumePost(
+            
+            resume_post = ResumePost( 
                                 Applicant_name  = Applicant_name,
                                 document=document,
-                                jobpost_title = self.validated_data['jobpost_title'],
-                                author=self.validated_data['author'],
+                                jobpost_title = self.validated_data['jobpost_title'], 
                                 )
 
             resume_post.save()

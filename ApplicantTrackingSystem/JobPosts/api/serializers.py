@@ -102,16 +102,16 @@ class JobPostUpdateSerializer(serializers.ModelSerializer):
 				destination.close()
 
 			#Check image size
-			if not is_image_size_valid(url, IMAGE_SIZE_MAX_BYTES):
-				os.remove(url)
-				raise serializers.ValidationError({"response": "That image is too large. Images must be less than 2 MB. Try a different image."})
+			#if not is_image_size_valid(url, IMAGE_SIZE_MAX_BYTES):
+			#	os.remove(url)
+			#	raise serializers.ValidationError({"response": "That image is too large. Images must be less than 2 MB. Try a different image."})
 
 			# Check image aspect ratio
-			if not is_image_aspect_ratio_valid(url):
-				os.remove(image)
-				raise serializers.ValidationError({"response": "Image height must not exceed image width. Try a different image."})
+			#if not is_image_aspect_ratio_valid(url):
+			#	os.remove(image)
+			#	raise serializers.ValidationError({"response": "Image height must not exceed image width. Try a different image."})
 
-				os.remove(url)
+			#	os.remove(url)
 		except KeyError:
 			pass
 		return job_post
@@ -120,7 +120,7 @@ class JobPostUpdateSerializer(serializers.ModelSerializer):
 class JobPostCreateSerializer(serializers.ModelSerializer):
 
 
-	class Meta:
+	class Meta:  
 		model = JobPost
 		fields = ['title', 'body', 'image', 'date_updated', 'author']
 
@@ -153,14 +153,14 @@ class JobPostCreateSerializer(serializers.ModelSerializer):
 				destination.close()
 
 			# Check image size
-			if not is_image_size_valid(url, IMAGE_SIZE_MAX_BYTES):
-				os.remove(url)
-				raise serializers.ValidationError({"response": "That image is too large. Images must be less than 2 MB. Try a different image."})
+			#if not is_image_size_valid(url, IMAGE_SIZE_MAX_BYTES):
+			#	os.remove(url)
+			#	raise serializers.ValidationError({"response": "That image is too large. Images must be less than 2 MB. Try a different image."})
 
 			# Check image aspect ratio
-			if not is_image_aspect_ratio_valid(url):
-				os.remove(url)
-				raise serializers.ValidationError({"response": "Image height must not exceed image width. Try a different image."})
+			#if not is_image_aspect_ratio_valid(url):
+			#	os.remove(url)
+			#	raise serializers.ValidationError({"response": "Image height must not exceed image width. Try a different image."})
 
 			os.remove(url)
 			job_post.save()
