@@ -13,6 +13,7 @@ Including another URLconf
     1. Import the include() function: from django.urls import include, path
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
+from os import name
 from django import urls
 from django.contrib import admin
 from django.urls import path, include
@@ -21,13 +22,19 @@ from django.conf.urls.static import static
 from django.views.generic import TemplateView
 from django.contrib.auth.views import LogoutView
 from Home.views import home_screen_view
+from ResumeRanking.views import ranking_view
 from Account.views import(
     registration_view,
     login_view,
     logout_view,
-    account_view,
+    update_view,
 	must_authenticate_view,
-)
+) 
+from CompanyDashboard.views import account_view
+from ResumePost.views import create_resume_view
+    
+
+
 
 
 urlpatterns = [
@@ -36,12 +43,15 @@ urlpatterns = [
 #path('',TemplateView.as_view(template_name = 'index.html')),
     path('accounts/', include('allauth.urls')),
     path('register/', registration_view, name="registration"),
-    path('account/', account_view, name="account"),
+    path('update/', update_view, name="update"),
     path('login/', login_view, name="login"),
     path('logout/', logout_view, name="logout" ),
     path('must_authenticate/', must_authenticate_view, name="must_authenticate"),
     path('jobs/', include('JobPosts.urls', 'jobs')),
+    path('rank', ranking_view, name="ranking"),
     #path('logout', LogoutView.as_view())
+    path('account/', account_view, name = "account"),
+    path('post-resumes', create_resume_view, name="post-resumes"),
 
     # rest framework
     path('api/jobs/', include('JobPosts.api.urls', 'jobs_api')),

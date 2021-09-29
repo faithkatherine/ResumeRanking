@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/3.0/ref/settings/
 
 import os
 import datetime
+import dj_database_url
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -48,6 +49,8 @@ INSTALLED_APPS = [
     'JobPosts',
     'Home',
     'ResumePost',
+    'ResumeRanking',
+    'CompanyDashboard',
     'rest_framework',
     'rest_framework.authtoken',
     'corsheaders',
@@ -56,7 +59,9 @@ INSTALLED_APPS = [
 AUTH_USER_MODEL = 'Account.Account'
 REST_FRAMEWORK = {
     'DEFAULT_PERMISSION_CLASSES' : (
+        'rest_framework.permissions.IsAdminUser', 
         'rest_framework.permissions.IsAuthenticatedOrReadOnly',
+        'rest_framework.permissions.IsAuthenticated',
         #'oauth2_provider.contrib.rest_framework.OAuth2Authentication',
         #'rest_framework_social_oauth2.authentication.SocialAuthentication',
     ),
@@ -88,6 +93,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    #'middleware.security.NonpublicProfilefullMiddleware',
     
 ]
 
@@ -96,7 +102,7 @@ ROOT_URLCONF = 'ApplicantTrackingSystem.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [os.path.join(BASE_DIR, 'Templates'),],
+        'DIRS': [os.path.join(BASE_DIR, 'Templates'), os.path.join(BASE_DIR, "FrontendATS")],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
