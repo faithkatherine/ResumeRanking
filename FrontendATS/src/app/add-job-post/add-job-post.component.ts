@@ -44,6 +44,8 @@ export class AddJobPostComponent implements OnInit {
       (response:any) => {
         console.log(response);
       })
+      this.router.navigate(['/account']);
+
   }
 
   ngOnInit(): void {

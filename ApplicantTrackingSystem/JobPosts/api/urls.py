@@ -5,7 +5,7 @@ from JobPosts.api.views import(
 	api_delete_job_view,
 	api_create_job_view,
 	api_is_author_of_jobpost,
-	ApiJobListView,
+	ApiJobListView,  
 
 )
 

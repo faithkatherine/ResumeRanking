@@ -1,0 +1,494 @@
+<div class="card">
+  <h5 class="card-header">
+    Build Your Résumé
+  </h5>
+
+  <div class="card-body">
+    <form novalidate (ngSubmit)="save()" [formGroup]="resumeBuilderForm">
+      <div class="form-row">
+        <div class="form-group col-md-5">
+          <label for="firstNameId">First Name</label>
+          <input
+            class="form-control"
+            id="firstNameId"
+            type="text"
+            placeholder="First Name"
+            formControlName="firstName"
+            [ngClass]="{
+              'is-invalid':
+                (resumeBuilderForm.get('firstName').touched ||
+                  resumeBuilderForm.get('firstName').dirty) &&
+                !resumeBuilderForm.get('firstName').valid
+            }"
+          />
+          <span class="invalid-feedback">
+            <span *ngIf="resumeBuilderForm.get('firstName').errors?.required">
+              Please enter your first name.
+            </span>
+          </span>
+        </div>
+
+        <div class="form-group col-md-5">
+          <label for="lastNameId">Last Name</label>
+          <input
+            class="form-control"
+            id="lastNameId"
+            type="text"
+            placeholder="Last Name"
+            formControlName="lastName"
+            [ngClass]="{
+              'is-invalid':
+                (resumeBuilderForm.get('lastName').touched ||
+                  resumeBuilderForm.get('lastName').dirty) &&
+                !resumeBuilderForm.get('lastName').valid
+            }"
+          />
+          <span class="invalid-feedback">
+            <span *ngIf="resumeBuilderForm.get('lastName').errors?.required">
+              Please enter your last name.
+            </span>
+          </span>
+        </div>
+      </div>
+
+      <div class="form-row">
+        <div class="form-group col-md-10">
+          <label for="emailId">Email</label>
+          <input
+            class="form-control"
+            id="emailId"
+            type="email"
+            placeholder="Email"
+            formControlName="email"
+            [ngClass]="{
+              'is-invalid':
+                (resumeBuilderForm.get('email').touched ||
+                  resumeBuilderForm.get('email').dirty) &&
+                !resumeBuilderForm.get('email').valid
+            }"
+          />
+          <span class="invalid-feedback">
+            <span *ngIf="resumeBuilderForm.get('email').errors?.required">
+              Please enter your email.
+            </span>
+            <span *ngIf="resumeBuilderForm.get('email').errors?.email">
+              Please enter right email format.
+            </span>
+          </span>
+        </div>
+      </div>
+
+      <div class="form-row">
+        <div class="form-group col-md-10">
+          <label for="phoneId">Phone</label>
+          <input
+            class="form-control"
+            id="phoneId"
+            type="tel"
+            placeholder="Phone"
+            formControlName="phone"
+            [ngClass]="{ 'is-invalid': !resumeBuilderForm.get('phone').valid }"
+          />
+          <span class="invalid-feedback">
+            <span *ngIf="resumeBuilderForm.get('phone').errors?.required">
+              Please enter your phone number.
+            </span>
+          </span>
+        </div>
+      </div>
+
+      <div class="form-row">
+        <div class="form-group col-md-10">
+          <label for="currentLocationId">Current Location</label>
+          <input
+            class="form-control"
+            id="currentLocationId"
+            type="text"
+            placeholder="Nairobi"
+            formControlName="currentLocation"
+            [ngClass]="{ 'is-invalid': !resumeBuilderForm.get('currentLocation').valid }"
+          />
+          <span class="invalid-feedback">
+            <span *ngIf="resumeBuilderForm.get('currentLocation').errors?.required">
+              Please enter your current location.
+            </span>
+          </span>
+        </div>
+      </div>
+
+      <div class="form-row">
+        <div class="form-group col-md-10">
+          <label for="linkedInId">LinkedIn Account</label>
+          <input
+            class="form-control"
+            id="linkedInId"
+            type="text"
+            placeholder=""
+            formControlName="linkedIn"
+            [ngClass]="{ 'is-invalid': !resumeBuilderForm.get('linkedIn').valid }"
+          />
+          <span class="invalid-feedback">
+            <span *ngIf="resumeBuilderForm.get('linkedIn').errors?.required">
+              Please enter your LinkedIn Account.
+            </span>
+          </span>
+        </div>
+      </div>
+
+      <div class="form-row">
+        <div class="form-group col-md-10">
+          <label for="githubId">Github Account</label>
+          <input
+            class="form-control"
+            id="githubId"
+            type="text"
+            placeholder=""
+            formControlName="github"
+            [ngClass]="{ 'is-invalid': !resumeBuilderForm.get('github').valid }"
+          />
+          <span class="invalid-feedback">
+            <span *ngIf="resumeBuilderForm.get('github').errors?.required">
+              Please enter your Github Account.
+            </span>
+          </span>
+        </div>
+      </div>
+      <br/>
+
+      <div class="flexContainer">
+        <h5>Education Background</h5>
+        <svg (click)="addEducation()">
+          <use xlink:href="./../../assets/Images/svg/icons.svg#icon-add"></use>
+        </svg>
+      </div>
+      <div
+        formArrayName="educationBlocks"
+        *ngFor="let education of educationBlocks.controls; let i = index">
+        <div
+          [ngClass]="{
+            'education-block': educationBlocks.controls.length > 1
+          }"
+          [formGroupName]="i">
+          <div class="form-row">
+            <div class="form-group col-md-10">
+              <label attr.for="{{ 'levelId' + i }}">Level of Education</label>
+              <input
+                class="form-control"
+                id="{{ 'levelId' + i }}"
+                type="text"
+                placeholder="Ex:HighSchool/University"
+                formControlName="school"
+              />
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-group col-md-10">
+              <label attr.for="{{ 'schoolId' + i }}">School Name</label>
+              <input
+                class="form-control"
+                id="{{ 'schoolId' + i }}"
+                type="text"
+                placeholder="Ex: Dedan Kimathi University"
+                formControlName="school"
+              />
+            </div>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group col-md-10">
+              <label attr.for="{{ 'percentageId' + i }}">Percentage Score</label>
+              <input
+                class="form-control"
+                id="{{ 'percentageId' + i }}"
+                type="text"
+                placeholder="Ex: 70%"
+                formControlName="percentage"
+              />
+            </div>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group col-md-5">
+              <label attr.for="{{ 'passingYearId' + i }}">passingYear</label>
+              <input
+                class="form-control"
+                id="{{ 'passingYearId' + i }}"
+                type="date"
+                placeholder="Date of completion/graduation"
+                formControlName="passingYear"
+              />
+            </div>
+
+          </div>
+
+          <hr *ngIf="i !== educationBlocks.controls.length - 1" />
+        </div>
+      </div>
+      <br/>
+
+      <div class="flexContainer">
+        <h5>Work Experience</h5>
+        <svg (click)="addExperience()">
+          <use xlink:href="./../../assets/Images/svg/icons.svg#icon-add"></use>
+        </svg>
+      </div>
+      <div
+        formArrayName="experienceBlocks"
+        *ngFor="let experience of experienceBlocks.controls; let i = index">
+
+        <div
+          [ngClass]="{
+            'experience-block': experienceBlocks.controls.length > 1
+          }"
+          [formGroupName]="i">
+          <div class="form-row">
+            <div class="form-group col-md-10">
+              <label attr.for="{{ 'titleId' + i }}">Title</label>
+              <input
+                class="form-control"
+                id="{{ 'titleId' + i }}"
+                type="text"
+                placeholder="Ex: Software Engineer"
+                formControlName="title"
+              />
+            </div>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group col-md-10">
+              <label attr.for="{{ 'companyId' + i }}">Company</label>
+              <input
+                class="form-control"
+                id="{{ 'companyId' + i }}"
+                type="text"
+                placeholder="Ex: Microsoft"
+                formControlName="company"
+              />
+            </div>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group col-md-10">
+              <label attr.for="{{ 'locationId' + i }}">Location</label>
+              <input
+                class="form-control"
+                id="{{ 'locationId' + i }}"
+                type="text"
+                placeholder="Ex: London, United Kingdom"
+                formControlName="location"
+              />
+            </div>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group col-md-5">
+              <label attr.for="{{ 'startDateId' + i }}">Start Date</label>
+              <input
+                class="form-control"
+                id="{{ 'startDateId' + i }}"
+                type="date"
+                placeholder=""
+                formControlName="startDate"
+              />
+            </div>
+            <div class="form-group col-md-5">
+              <label attr.for="{{ 'endDateId' + i }}">End Date</label>
+              <input
+                class="form-control"
+                id="{{ 'endDateId' + i }}"
+                type="date"
+                placeholder="End Date"
+                formControlName="endDate"
+              />
+            </div>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group col-md-10">
+              <label attr.for="{{ 'descId' + i }}">Description</label>
+              <textarea
+                class="form-control"
+                rows="5"
+                id="{{ 'descId' + i }}"
+                type="text"
+                placeholder="Description"
+                formControlName="description"
+              ></textarea>
+            </div>
+          </div>
+          <hr *ngIf="i !== experienceBlocks.controls.length - 1" />
+        </div>
+      </div>
+      <br/>
+
+      <div class="flexContainer">
+        <h5>Skills</h5>
+        <svg (click)="addSkills()">
+          <use xlink:href="./../../assets/Images/svg/icons.svg#icon-add"></use>
+        </svg>
+      </div>
+      <div
+        formArrayName="skillBlocks"
+        *ngFor="let skill of skillBlocks.controls; let i = index">
+        <div
+          [ngClass]="{
+            'skill-block': skillBlocks.controls.length > 1
+          }"
+          [formGroupName]="i">
+          <div class="form-row">
+            <div class="form-group col-md-10">
+              <label attr.for="{{ 'skillId' + i }}">Skill Name</label>
+              <input
+                class="form-control"
+                id="{{ 'skillId' + i }}"
+                type="text"
+                placeholder="Ex: Python Programming"
+                formControlName="skill"
+              />
+            </div>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group col-md-10">
+              <label attr.for="{{ 'yearsId' + i }}">Years of Experience</label>
+              <input
+                class="form-control"
+                id="{{ 'yearsId' + i }}"
+                type="text"
+                placeholder="Ex: 3 years"
+                formControlName="years"
+              />
+            </div>
+          </div>
+
+          <hr *ngIf="i !== skillBlocks.controls.length - 1" />
+        </div>
+      </div>
+      <br/>
+
+      <div class="flexContainer">
+        <h5>Projects and Certifications</h5>
+        <svg (click)="addProjects()">
+          <use xlink:href="./../../assets/Images/svg/icons.svg#icon-add"></use>
+        </svg>
+      </div>
+      <div
+        formArrayName="projectBlocks"
+        *ngFor="let project of projectBlocks.controls; let i = index">
+        <div
+          [ngClass]="{
+            'project-block': projectBlocks.controls.length > 1
+          }"
+          [formGroupName]="i">
+          <div class="form-row">
+            <div class="form-group col-md-10">
+              <label attr.for="{{ 'nameId' + i }}">Name of Project/ Certification</label>
+              <input
+                class="form-control"
+                id="{{ 'nameId' + i }}"
+                type="text"
+                placeholder="Ex: EduHub"
+                formControlName="name"
+              />
+            </div>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group col-md-10">
+              <label attr.for="{{ 'linkId' + i }}">Attach Project Link</label>
+              <input
+                class="form-control"
+                id="{{ 'linkId' + i }}"
+                type="text"
+                placeholder="Ex: https://EduHub.com"
+                formControlName="link"
+              />
+            </div>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group col-md-10">
+              <label attr.for="{{ 'projectDescriptionId' + i }}">Description</label>
+              <textarea
+                class="form-control"
+                rows="5"
+                id="{{ 'projectDescriptionId' + i }}"
+                type="text"
+                placeholder="Description"
+                formControlName="projectDescription"
+              ></textarea>
+            </div>
+          </div>
+          <hr *ngIf="i !== experienceBlocks.controls.length - 1" />
+        </div>
+      </div>
+      <br/>
+
+      <div class="flexContainer">
+        <h5>References</h5>
+        <svg (click)="addReference()">
+          <use xlink:href="./../../assets/Images/svg/icons.svg#icon-add"></use>
+        </svg>
+      </div>
+      <div
+        formArrayName="referenceBlocks"
+        *ngFor="let reference of referenceBlocks.controls; let i = index">
+        <div
+          [ngClass]="{
+            'reference-block': referenceBlocks.controls.length > 1
+          }"
+          [formGroupName]="i"
+        >
+          <div class="form-row">
+            <div class="form-group col-md-10">
+              <label attr.for="{{ 'refereeId' + i }}">Name of referee</label>
+              <input
+                class="form-control"
+                id="{{ 'refereeId' + i }}"
+                type="text"
+                placeholder="Ex: Faith Catherine"
+                formControlName="referee"
+              />
+            </div>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group col-md-10">
+              <label attr.for="{{ 'phoneId' + i }}">Phone Number</label>
+              <input
+                class="form-control"
+                id="{{ 'phoneId' + i }}"
+                type="text"
+                placeholder="Ex: 0724******"
+                formControlName="phone"
+              />
+            </div>
+          </div>
+
+          <hr *ngIf="i !== experienceBlocks.controls.length - 1" />
+        </div> 
+      </div>
+      <br/>
+
+      <div class="col-md-4">
+        <div class="shadow-sm card action-buttons">
+          <button (click)="resumeBuilderForm.valid ? generatePdf('open') : ''"
+            class="btn btn-primary d-flex align-items-center justify-content-center">
+            <i class="material-icons">
+              picture_as_pdf
+            </i> <span>Open PDF</span></button>
+          <button (click)="resumeBuilderForm.valid ? generatePdf('download') : ''"
+            class="btn btn-primary d-flex align-items-center justify-content-center">
+            <i class="material-icons">
+              cloud_download
+            </i><span>Download PDF</span></button>
+          <button (click)="resumeBuilderForm.valid ? generatePdf('print') : ''"
+            class="btn btn-primary d-flex align-items-center justify-content-center">
+            <i class="material-icons">
+              print
+            </i><span>Print PDF</span></button>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>

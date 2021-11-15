@@ -2,8 +2,9 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import {HttpClientModule, HTTP_INTERCEPTORS} from '@angular/common/http';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
-import { UserRequestInterceptor } from './interceptor'
+import { UserRequestInterceptor } from './interceptor';
 import { RichTextEditorAllModule } from '@syncfusion/ej2-angular-richtexteditor';
+
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -15,6 +16,8 @@ import { RegistrationComponent } from './registration/registration.component';
 import { AuthComponent } from './auth/auth.component';
 import { LoginComponent } from './login/login.component';
 import { AddJobPostComponent } from './add-job-post/add-job-post.component';
+import { AddResumesComponent } from './add-resumes/add-resumes.component';
+import { ResumeBuilderComponent } from './resume-builder/resume-builder.component';
 
 @NgModule({
   declarations: [
@@ -26,8 +29,14 @@ import { AddJobPostComponent } from './add-job-post/add-job-post.component';
     RegistrationComponent,
     AuthComponent,
     LoginComponent,
-    AddJobPostComponent
+    AddJobPostComponent,
+    AddResumesComponent,
+    ResumeBuilderComponent
   ],
+  entryComponents: [
+    JobPostComponent
+  ],
+
   imports: [
     BrowserModule,
     AppRoutingModule,

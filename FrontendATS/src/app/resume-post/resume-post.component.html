@@ -1,1 +1,12 @@
-<p>resume-post works!</p>
+<div *ngFor="let post of posts">
+  <div class="the-card">
+    <div class="card" >
+      <img class="card-img-top" [src]="post.image" >
+      <div class="card-body">
+        <h5 class="card-title">{{ post.title }}</h5>
+        <p class="card-text">{{ post.body }}</p>
+        <button class="btn btn-primary " (click)= "save_title(post.title)" [routerLink] = "['/create-resume']">Apply</button>
+      </div>
+    </div>
+  </div>
+</div>

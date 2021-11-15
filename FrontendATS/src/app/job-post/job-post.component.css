@@ -1,3 +1,18 @@
-body{
-  color: white;
+.the-card{
+  padding: 10px;
+
+}
+
+.card{
+  padding: 5px;
+  width: 400px;
+  height: 500px;
+  /*transform:  rotate(5deg)
+              skew(5deg);*/
+
+}
+
+.card-img-top{
+  width: 150px;
+  height: 150px;
 }

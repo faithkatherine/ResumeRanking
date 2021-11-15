@@ -1,0 +1,21 @@
+<div class="container">
+  <div class="row">
+    <div class="col-12">
+      <h1>Post Resume</h1>
+    </div>
+    <div class="col-12">
+      <form [formGroup]="form" (ngSubmit)="addResumePost()">
+        <div class="form-group">
+          <label>Applicant Name</label>
+          <input type="text" class="form-control" formControlName="Applicant_name" placeholder="Enter your name" required>
+        </div>
+
+        <div class="form-group">
+          <label>Resume</label>
+          <input type="file" class="form-control" (change)="uploadFile($event)" required>
+        </div>
+        <button type="submit" class="btn btn-success" >Send Application</button>
+      </form>
+    </div>
+  </div>
+</div>

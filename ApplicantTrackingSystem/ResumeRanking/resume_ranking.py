@@ -7,6 +7,7 @@ from sklearn.metrics.pairwise import cosine_similarity
 #from resume_parser import resumeparse # Library 1
 #from pyresparser import ResumeParser #Library 2
 import os
+import re
 #import spacy
 import pandas as pd
 #spacy.load('en_core_web_sm')
@@ -62,12 +63,50 @@ class resume_ranking:
             matchPercentage = round(matchPercentage, 2) # round to two decimal
             print("Your resume matches about "+ str(matchPercentage)+ "% of the job description.")
             
-            res_list.append(matchPercentage)
+            #res_list.append(matchPercentage)
             #print(len(res_list))
-            res_list.sort(reverse=True)
-            print(res_list)
-            df= pd.DataFrame(res_list)
-            result = df.to_html()
+            #res_list.sort(reverse=True)
+            #print(res_list)
+
+                #print(cosine_similarity(count_matrix))
+
+    
+
+            obtainedResumeText = resume_text
+
+            def personalDetailExtractor():
+                finalExtractedEmail = []
+                finalExtractedPhone = []
+                oneFourthOfResume = obtainedResumeText[0:len(obtainedResumeText)//4] 
+                emailResume = re.findall(r"[a-z0-9\.\-+_]+@[a-z0-9\.\-+_]+\.[a-z]+", oneFourthOfResume)
+                phoneResume = re.findall(r"(\d{3}[-\.\s]??\d{3}[-\.\s]??\d{4}|\(\d{3}\)\s*\d{3}[-\.\s]??\d{4}|\d{3}[-\.\s]??\d{4})",oneFourthOfResume)
+                
+                if len(emailResume) > 1:
+                    finalExtractedEmail = emailResume[0]
+                else:
+                    finalExtractedEmail = emailResume
+                    
+                for i in range(len(phoneResume)):
+                    if len(phoneResume[i])>=10:
+                        finalExtractedPhone = phoneResume[i]
+                return finalExtractedEmail,finalExtractedPhone
+
+        finalExtractedEmail , finalExtractedPhone = personalDetailExtractor()
+        #print("Email Address:",finalExtractedEmail)
+        #print("Phone Number:",finalExtractedPhone)
+
+        res_list.append(matchPercentage,)
+        df = pd.DataFrame(res_list)
+        #print(len(res_list))
+        #res_list.sort(reverse=True)
+        #print(res_list)
+        #data = [[matchPercentage, finalExtractedEmail, finalExtractedPhone]]
+
+        #df = pd.DataFrame(data, columns = ['Percentage', 'Email', 'Phone'])
+        print(df)
+
+        #df= pd.DataFrame(res_list)
+        result = df.to_html() 
         return(result)
 
     

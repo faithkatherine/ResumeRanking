@@ -2,6 +2,7 @@ import {Injectable} from "@angular/core";
 import {HttpInterceptor, HttpRequest, HttpHandler} from "@angular/common/http";
 import {AuthService} from "./services/auth.service";
 import {isNullOrUndefined} from "util";
+import { AddResumesComponent } from "./add-resumes/add-resumes.component";
 
 @Injectable()
 export class UserRequestInterceptor implements HttpInterceptor {
@@ -26,4 +27,6 @@ export class UserRequestInterceptor implements HttpInterceptor {
     });
     return next.handle(req);
   }
+
 }
+

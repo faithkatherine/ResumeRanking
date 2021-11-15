@@ -35,12 +35,20 @@ export class JobPostComponent implements OnInit {
           let url = "http://127.0.0.1:8000/";
           let filepath = post.image;
           post.image = url + filepath.substr(1);
+
         }
 
       },
       err => console.error(err),
       () => console.log('done loading posts')
+
     );
+
+
+  }
+
+  save_title(title){
+    localStorage.setItem('title',JSON.stringify(title));
   }
 
 }

@@ -9,22 +9,18 @@
       <li class="nav-item active">
         <a class="nav-link" [routerLink]="['/home']">Home <span class="sr-only">(current)</span></a>
       </li>
-      <li class="nav-item">
-        <a class="nav-link" href="#">Link</a>
-      </li>
       <li class="nav-item dropdown">
         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
           Account
         </a>
         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-          <a class="dropdown-item" >Login</a>
-          <a class="dropdown-item" href="#">Another action</a>
-          <div class="dropdown-divider"></div>
-          <a class="dropdown-item" href="#">Something else here</a>
+          <a class="dropdown-item " [routerLink] = "['/login']" >Login</a>
+          <a class="dropdown-item " [routerLink] = "['/registration']">Register</a>
+
         </div>
       </li>
       <li class="nav-item">
-        <a class="nav-link disabled" href="#">Disabled</a>
+        <a class="nav-link nav-link" [routerLink] = "['/jobpost']">Jobs</a>
       </li>
     </ul>
     <form class="form-inline my-2 my-lg-0">
@@ -34,4 +30,35 @@
   </div>
 </nav>
 
-<img class=" img-responsive landing-image " src="../../assets/Images/Resume-amico.png">
+
+<div class="row">
+  <h2 class="header">
+    The Recruiter
+  </h2>
+</div>
+<div class="row">
+  <img class="landing-image img-fluid " src="../../assets/Images/Resume-amico.png">
+</div>
+
+
+
+
+
+
+  <!--<div class=" the-card col s12 m6">
+    <div class="card" >
+      <img class="card-img-top" src="../../assets/Images/Selecting team-bro.png" >
+      <div class="card-body">
+        <h5 class="card-title">The right Team</h5>
+        <p class="card-text">
+          We help make the Hiring process more efficient
+        </p>
+
+      </div>
+
+    </div>
+
+  </div> -->
+
+
+
